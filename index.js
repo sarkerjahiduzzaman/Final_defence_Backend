@@ -266,13 +266,13 @@ async function run(){
 
 
 
-    //add post data in a new data collection
+    // //add post data in a new data collection
     
-     app.post('/addedrentpost', async (req, res) => {
-        const rentpost= req.body;
-        const result = await addPostDataCollection.insertOne(rentpost);
-        res.send(result);
-      })
+    //  app.post('/addedrentpost', async (req, res) => {
+    //     const rentpost= req.body;
+    //     const result = await addPostDataCollection.insertOne(rentpost);
+    //     res.send(result);
+    //   })
 
       // data is added also rentcollection data This is not worke in this time 
       app.post('/addedrentpost', async (req, res) => {
@@ -304,6 +304,21 @@ async function run(){
         const updateDoc={
             $set:{
                 approvee:`${email}`
+            }
+        }
+        const result=await addTechnicianOrder.updateOne(filter,updateDoc,options);
+        res.send(result)
+      })
+
+
+      app.put('/addtechnicianorde/:id/:email', async (req,res)=>{
+        const id=req.params.id;
+        const email=req.params.email;
+        const filter={ _id:new ObjectId(id)};
+        const options={upsert:true};
+        const updateDoc={
+            $set:{
+                done:"done"
             }
         }
         const result=await addTechnicianOrder.updateOne(filter,updateDoc,options);
